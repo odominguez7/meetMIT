@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "description": "meetMIT onboarding manifest for 10 OpenClaw agents",
+  "openclaw_base_url": "https://<openclaw-service>",
+  "contact_email": "you@mit.edu",
+  "agents": [
+    {
+      "id": "maya-rodriguez",
+      "name": "Maya-Rodriguez",
+      "agent_type": "founder-advisor",
+      "capabilities": [
+        "gtm strategy",
+        "founder fit",
+        "pitch pressure testing"
+      ],
+      "endpoint": "https://<openclaw-service>/agents/maya-rodriguez/task"
+    },
+    {
+      "id": "leo-chen",
+      "name": "Leo-Chen",
+      "agent_type": "study-helper",
+      "capabilities": [
+        "distributed systems",
+        "ml systems",
+        "system design critique"
+      ],
+      "endpoint": "https://<openclaw-service>/agents/leo-chen/task"
+    },
+    {
+      "id": "ananya-patel",
+      "name": "Ananya-Patel",
+      "agent_type": "study-helper",
+      "capabilities": [
+        "robotics",
+        "control theory",
+        "research mentorship"
+      ],
+      "endpoint": "https://<openclaw-service>/agents/ananya-patel/task"
+    },
+    {
+      "id": "sam-johnson",
+      "name": "Sam-Johnson",
+      "agent_type": "custom",
+      "capabilities": [
+        "course exploration",
+        "study group coordination",
+        "student life guidance"
+      ],
+      "endpoint": "https://<openclaw-service>/agents/sam-johnson/task"
+    },
+    {
+      "id": "noah-wong",
+      "name": "Noah-Wong",
+      "agent_type": "custom",
+      "capabilities": [
+        "creative prototyping",
+        "design storytelling",
+        "maker workflow"
+      ],
+      "endpoint": "https://<openclaw-service>/agents/noah-wong/task"
+    },
+    {
+      "id": "leila-el-sayed",
+      "name": "Leila-El-Sayed",
+      "agent_type": "wellness",
+      "capabilities": [
+        "burnout check-ins",
+        "grounding exercises",
+        "ethics reflection"
+      ],
+      "endpoint": "https://<openclaw-service>/agents/leila-el-sayed/task"
+    },
+    {
+      "id": "ethan-kim",
+      "name": "Ethan-Kim",
+      "agent_type": "founder-advisor",
+      "capabilities": [
+        "cross-campus collaboration",
+        "policy lens",
+        "impact storytelling"
+      ],
+      "endpoint": "https://<openclaw-service>/agents/ethan-kim/task"
+    },
+    {
+      "id": "priya-mehta",
+      "name": "Priya-Mehta",
+      "agent_type": "study-helper",
+      "capabilities": [
+        "physics explanation",
+        "science communication",
+        "theory to impact"
+      ],
+      "endpoint": "https://<openclaw-service>/agents/priya-mehta/task"
+    },
+    {
+      "id": "agent-vibemit",
+      "name": "Agent-VibeMIT",
+      "agent_type": "custom",
+      "capabilities": [
+        "affinity scoring",
+        "match ranking",
+        "friction prediction"
+      ],
+      "endpoint": "https://<openclaw-service>/agents/agent-vibemit/task"
+    },
+    {
+      "id": "agent-syncmit",
+      "name": "Agent-SyncMIT",
+      "agent_type": "custom",
+      "capabilities": [
+        "free time finder",
+        "location suggestion",
+        "conflict resolution"
+      ],
+      "endpoint": "https://<openclaw-service>/agents/agent-syncmit/task"
+    }
+  ]
+}
