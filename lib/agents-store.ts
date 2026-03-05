@@ -47,7 +47,9 @@ type AgentStore = {
   activity: ActivityRecord[];
 };
 
-const DATA_DIR = path.join(process.cwd(), ".data");
+const DATA_DIR =
+  process.env.AGENT_STORE_DIR ||
+  (process.env.K_SERVICE ? "/tmp/meetmit-data" : path.join(process.cwd(), ".data"));
 const STORE_FILE = path.join(DATA_DIR, "agents-store.json");
 
 const minuteCounter = new Map<string, number>();
