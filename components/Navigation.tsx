@@ -7,6 +7,7 @@ const navLinks = [
   { href: "/sparks", label: "Sparks" },
   { href: "/offers", label: "Offers" },
   { href: "/insights", label: "Insights" },
+  { href: "/ai-studio-room", label: "AI Studio Room" },
   { href: "/trust", label: "Trust" },
   { href: "/settings", label: "Settings" },
 ];
