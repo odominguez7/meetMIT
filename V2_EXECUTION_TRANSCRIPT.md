@@ -42,6 +42,13 @@ Purpose: Daily handoff log so work can resume immediately with full context.
 - Plan file present: `V2_DEPLOYMENT_PLAN.md`
 - Next checkpoint gate: Phase 0 validation pass
 
+### Execution Update (2026-03-05, later)
+
+- Added and pushed `OPENCLAW_8_AGENT_DEPLOYMENT_GUIDE.md` with expanded meetMIT/HW3-ready persona specs.
+- Guide now includes copy/paste `IDENTITY.md`, `SOUL.md`, and `TOOLS.md` blocks for all 8 canonical agents.
+- Delivery status for agents track: design guidance complete; runtime and registration can proceed directly from the new guide.
+- Current V2 app migration phase remains unchanged: Pre-Phase 0 scaffold still pending.
+
 ---
 
 ## Daily Update Template
