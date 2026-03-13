@@ -3,35 +3,123 @@
 ## Session
 - [Join39 App Build And Debug](695f5f87-f4df-4b85-98a4-e239f402a54b)
 
-## Why this session stands out
-In this session, I used a coding agent to go from a rough idea to a fully working developer app, then handled real integration failures in production-like conditions. It was not just scaffolding; it included build, test, deploy, API troubleshooting, auth debugging, and final verification.
+## What I built in this session
+I used the coding agent to ship a full Join39 app (`yu-slot-finder`) end-to-end, including API implementation, function schema, test harness, and deployment/debug support.
 
-## What we shipped
-- Built a complete `yu-slot-finder` Node/Express app for Join39 with `POST /api/slots`.
-- Added realistic mock marketplace logic for fitness slots (filters, urgency, discounts, location handling).
-- Created manifest, test scripts, submission helper script, and documentation.
-- Pushed the project to GitHub and validated local runtime behavior.
+## Real code from the session
 
-## Hard problems solved during the session
-- Diagnosed wrong submission flow (`/apps/submit` UI route vs API behavior).
-- Corrected app submission understanding from docs and adjusted payload expectations.
-- Handled tunnel/HTTPS friction and validated public endpoint availability.
-- Debugged platform auth responses (`401 Authentication required`) and identified account-session dependency.
+### 1) Express API with filtering and response shaping
+```js
+app.post("/api/slots", (req, res) => {
+  const {
+    workout_type,
+    location = "Cambridge",
+    time_window = "next 2 hours",
+    max_price,
+  } = req.body || {};
 
-## Extended debugging depth (OpenClaw + Google Sheets)
-Later in the same working flow, we also resolved a separate but critical runtime issue in my OpenClaw setup:
-- Identified provider auth/plugin mismatch and narrowed root causes.
-- Set up Google ADC correctly on a GCE environment.
-- Resolved `403 SERVICE_DISABLED` by enabling `sheets.googleapis.com` and `drive.googleapis.com` on the project.
-- Re-tested the exact production script (`read_todos_adc.py`) and confirmed successful sheet reads.
-- Restarted runtime services and validated recovery.
+  if (!workout_type || typeof workout_type !== "string") {
+    return res.status(400).json({
+      error: "Missing required parameter: workout_type",
+    });
+  }
+
+  const hours = parseTimeWindowHours(time_window);
+  const workoutTypeNormalized = workout_type.toLowerCase();
+
+  const results = mockSlots
+    .filter((slot) =>
+      slot.workout_type.toLowerCase().includes(workoutTypeNormalized)
+    )
+    .filter((slot) => matchesLocation(slot.location, location))
+    .filter((slot) => (max_price ? slot.price <= Number(max_price) : true))
+    .filter((slot) => isWithinWindow(slot.class_time, hours))
+    .map((slot) => ({
+      studio: slot.studio,
+      class_time: slot.class_time,
+      price: slot.price,
+      discount: slot.discount,
+      whatsapp_book: `https://wa.me/16175550139?text=book?slot=${slot.id}`,
+      urgency: slot.spots_left <= 1 ? "1 spot left" : `${slot.spots_left} spots left`,
+      metadata: {
+        location: slot.location,
+        workout_type: slot.workout_type,
+        cancellations_recovered: slot.cancellations_recovered,
+      },
+    }));
+
+  return res.json(results);
+});
+```
+
+### 2) Location-intent fix for "MIT" queries
+```js
+function matchesLocation(slotLocation, requestedLocation) {
+  if (!requestedLocation) return true;
+
+  const slot = String(slotLocation).toLowerCase();
+  const requested = String(requestedLocation).toLowerCase();
+
+  if (slot.includes(requested)) return true;
+
+  // MIT intent should include nearby Cambridge/Kendall inventory.
+  if (requested.includes("mit")) {
+    return (
+      slot.includes("cambridge") ||
+      slot.includes("kendall") ||
+      slot.includes("central square")
+    );
+  }
+
+  return false;
+}
+```
+
+### 3) Join39 function-definition manifest
+```json
+{
+  "name": "yu-slot-finder",
+  "displayName": "YU Fitness Slot Finder",
+  "category": "productivity",
+  "apiEndpoint": "/api/slots",
+  "functionDefinition": {
+    "name": "yu-slot-finder",
+    "description": "Search available last-minute fitness slots (under 2hrs notice) in Cambridge studios.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "workout_type": { "type": "string", "description": "e.g. 'CrossFit', 'yoga', 'HIIT'" },
+        "location": { "type": "string", "default": "Cambridge" },
+        "time_window": { "type": "string", "description": "e.g. 'next 2 hours'" },
+        "max_price": { "type": "number" }
+      },
+      "required": ["workout_type"]
+    }
+  }
+}
+```
+
+### 4) Programmatic API smoke test
+```js
+const payload = {
+  workout_type: "CrossFit",
+  location: "MIT",
+  time_window: "next 2 hours",
+  max_price: 40,
+};
+
+const response = await fetch(`${baseUrl}/api/slots`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(payload),
+});
+```
+
+## Debugging and production-readiness proof
+- Resolved method mismatch confusion between Join39 UI route and API route.
+- Diagnosed and handled auth response (`401 Authentication required`) at submission stage.
+- Navigated tunnel limitations and still validated endpoint behavior.
+- Extended same session into OpenClaw reliability work (provider/plugin auth, ADC, Google Sheets API enablement).
 
 ## Outcome
-This was a full-stack execution session: design to delivery, then incident response and recovery. The agent did not stop at "here's a suggestion"; it drove implementation, surfaced concrete root causes, and closed the loop with verified fixes.
-
-## Why this matters for YC
-This session reflects the working style I want for my startup:
-- Ship quickly with pragmatic tooling.
-- Treat integration and reliability as first-class.
-- Use AI as an execution partner, not just a drafting assistant.
-- Keep momentum through blockers until the system actually works.
+This session shows concrete implementation quality plus operator-level debugging: writing backend logic, iterating from runtime evidence, and closing blockers until the system worked.
