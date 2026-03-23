@@ -169,7 +169,7 @@ export default function SparksPage() {
               Create a Spark
             </h2>
             <p className="mb-4 font-body text-sm text-night-400">
-              Spark creation form coming soon. For now, use the API directly.
+              Spark creation is available via the API. A full form is in development.
             </p>
             <button
               type="button"

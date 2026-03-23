@@ -28,16 +28,11 @@ export default function SettingsPage() {
   const [notificationCadence, setNotificationCadence] = useState("daily");
   const [visibility, setVisibility] = useState("public");
 
+  const [saved, setSaved] = useState(false);
+
   const handleSave = () => {
-    alert("Settings saved!");
-  };
-
-  const handleExportData = () => {
-    alert("Coming soon");
-  };
-
-  const handleDeleteAccount = () => {
-    alert("Coming soon");
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
   };
 
   return (
@@ -136,7 +131,10 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex items-center justify-end gap-4">
+          {saved && (
+            <span className="font-body text-sm text-green-400">Settings saved</span>
+          )}
           <button
             type="button"
             onClick={handleSave}
@@ -144,28 +142,6 @@ export default function SettingsPage() {
           >
             Save Settings
           </button>
-        </div>
-
-        <div className="glass p-6 space-y-4">
-          <h2 className="font-display text-lg font-semibold text-night-100">
-            Account
-          </h2>
-          <div className="flex flex-wrap gap-4">
-            <button
-              type="button"
-              onClick={handleExportData}
-              className="rounded-xl border border-white/20 bg-white/5 px-6 py-2 font-body font-medium text-night-200 transition-colors hover:bg-white/10"
-            >
-              Export My Data
-            </button>
-            <button
-              type="button"
-              onClick={handleDeleteAccount}
-              className="rounded-xl border border-red-500/30 bg-red-500/10 px-6 py-2 font-body font-medium text-red-400 transition-colors hover:bg-red-500/20"
-            >
-              Delete Account
-            </button>
-          </div>
         </div>
       </motion.div>
     </div>

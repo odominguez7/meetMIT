@@ -84,7 +84,7 @@ async function loadManifestAgents(): Promise<AgentRecord[]> {
     const openclawBase =
       process.env.OPENCLAW_BASE_URL ||
       process.env.NEXT_PUBLIC_APP_URL ||
-      "https://meetmit-api-114661584115.us-east1.run.app";
+      "http://localhost:3000";
 
     return (manifest.agents ?? []).map((a) => ({
       id: a.id,
