@@ -1,7 +1,26 @@
 node_modules/
 .next/
-.env
-.env.local
 *.tsbuildinfo
 next-env.d.ts
 .data/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+service-account*.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Testing
+coverage/
+.nyc_output/
