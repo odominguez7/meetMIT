@@ -8,11 +8,13 @@ AI-powered campus connection platform that turns free moments into meaningful in
 Big Five personality matching. Agent-assisted scheduling. Feedback loops that learn.
 Built for MIT and Harvard.
 
+[![License: MIT](https://img.shields.io/badge/MIT-blue?style=for-the-badge)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js_14-000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://postgresql.org)
-[![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://prisma.io)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
-[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-E85D04?style=for-the-badge)](https://github.com/odominguez7/meetMIT/pulls)
+
+**Open source. Contributions welcome.**
 
 </div>
 
@@ -309,6 +311,51 @@ prisma/
 
 ---
 
+## Contributing
+
+meetMIT is open source and built for collaboration. Whether you're at MIT, Harvard, or anywhere else -- if you care about making real human connections easier, you're welcome here.
+
+### Good first issues
+
+- **Add authentication** -- integrate NextAuth.js with .edu email verification
+- **Build the spark creation form** -- replace the modal placeholder with a real form
+- **Add tests** -- unit tests for affinity matching, integration tests for API routes
+- **Expand to other campuses** -- add campus enum values and location data
+- **Improve matching** -- experiment with different similarity algorithms beyond cosine
+- **Mobile polish** -- responsive improvements for the sparks feed and onboarding flow
+- **Add notifications** -- email or push notifications for spark invites and reminders
+
+### How to contribute
+
+```bash
+# 1. Fork the repo
+# 2. Clone your fork
+git clone https://github.com/YOUR_USERNAME/meetMIT.git
+cd meetMIT
+
+# 3. Set up locally (see Quick Start above)
+npm install
+docker compose up db -d
+cp .env.example .env
+npx prisma db push
+npm run db:seed
+npm run dev
+
+# 4. Create a branch
+git checkout -b my-feature
+
+# 5. Make changes, commit, push, open a PR
+```
+
+### Code style
+
+- TypeScript strict mode -- no `any` unless absolutely necessary
+- Zod validation on every API input
+- React components in PascalCase, files in kebab-case
+- Keep it simple. If it doesn't need abstraction, don't abstract it
+
+---
+
 ## The bigger picture
 
 Campus connections shouldn't depend on luck.
@@ -324,5 +371,7 @@ Every connection is real. Every meet is in person. Every match gets better becau
 <div align="center">
 
 **Built by [Omar](https://github.com/odominguez7) -- MIT Sloan '26**
+
+MIT License. Open source. Contributions welcome.
 
 </div>
